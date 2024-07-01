@@ -45,7 +45,7 @@ export class JwtAuthMiddleware implements ExpressMiddlewareInterface {
                 jwt.verify(token, JWT_SECRET, (err, user) => {
                     if (err) {
                         this.log.error('Error verifying token:', err);
-                        return res.status(403).send({ message: 'Token is not valid' });
+                        return res.status(403).send({ message: 'Your token is expired. Please login to access this resource!' });
                     }
 
                     this.log.info('Token is valid, setting user to request object.');
