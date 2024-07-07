@@ -10,7 +10,7 @@ import { PetNotFoundError } from '../errors/PetNotFoundError';
 import { JwtAuthMiddleware } from '../middlewares/JwtAuthMiddleware';
 import { Pet } from '../models/Pet';
 import { PetService } from '../services/PetService';
-import { UserResponse } from './UserController';
+import { UserResponse } from '../validators/UserValidator';
 
 class BasePet {
     @IsNotEmpty()

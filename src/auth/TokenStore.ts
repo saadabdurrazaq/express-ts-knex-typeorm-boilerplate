@@ -19,10 +19,6 @@ export class TokenStore {
             .where({ token })
             .count('* as count');
 
-        // if (result[0].count === 0) {
-        //     return result[0].count > 0;
-        // }
-
         if (typeof result[0].count === 'string') {
             return Number(result[0].count) > 0;
         } else {

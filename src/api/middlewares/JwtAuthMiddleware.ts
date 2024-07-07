@@ -21,7 +21,7 @@ export class JwtAuthMiddleware implements ExpressMiddlewareInterface {
 
         this.log.info('Request Headers: ', req.headers);
 
-        if (req.path === '/api/auth/login' || req.path === '/api/auth/logout') {
+        if (req.path === '/api/auth/login' || req.path === '/api/auth/logout' || req.path === '/api/users/register') {
             return next();
         }
 

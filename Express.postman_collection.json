@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e3edd459-16b7-4851-8de4-1aa7fe509135",
+		"_postman_id": "37bd3249-8cb5-464a-95d2-15fa10ecc563",
 		"name": "Express",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "11893867"
@@ -115,6 +115,66 @@
 						"api",
 						"auth",
 						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BEARER_TOKEN_FOR_USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"newuser@example.com\",\r\n    \"firstName\": \"New\",\r\n    \"lastName\": \"User\",\r\n    \"password\": \"password\",\r\n    \"username\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{APP_URL}}/api/users/register",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"register"
 					]
 				}
 			},

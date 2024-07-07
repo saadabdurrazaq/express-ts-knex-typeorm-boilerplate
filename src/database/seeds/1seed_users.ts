@@ -14,6 +14,9 @@ export async function seed(knex: Knex): Promise<void> {
         {
             username: 'john_doe',
             name: 'John Doe',
+            first_name: 'John',
+            last_name: 'Doe',
+            email: 'johndoe@example.com',
             photo: undefined,
             phone: '123-456-7890',
             email_verified_at: undefined,
@@ -30,6 +33,9 @@ export async function seed(knex: Knex): Promise<void> {
         {
             username: 'jane_doe',
             name: 'Jane Doe',
+            first_name: 'Jane',
+            last_name: 'Doe',
+            email: 'janedoe@example.com',
             photo: undefined,
             phone: '987-654-3210',
             email_verified_at: undefined,

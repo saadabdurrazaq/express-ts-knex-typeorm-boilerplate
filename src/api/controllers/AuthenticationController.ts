@@ -5,8 +5,7 @@ import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 import { Logger, LoggerInterface } from '../../decorators/Logger';
 import { JwtAuthMiddleware } from '../middlewares/JwtAuthMiddleware';
 import { AuthService } from '../services/AuthService';
-// import { UserService } from '../services/UserService';
-import { UserResponse } from './UserController';
+import { UserResponse } from '../validators/UserValidator';
 
 class LoginBody {
     @IsNotEmpty()

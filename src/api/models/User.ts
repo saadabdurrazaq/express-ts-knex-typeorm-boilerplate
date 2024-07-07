@@ -5,7 +5,7 @@ import { BeforeInsert, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 import { Pet } from './Pet';
 
-@Entity()
+@Entity('users')
 export class User {
 
     public static hashPassword(password: string): Promise<string> {

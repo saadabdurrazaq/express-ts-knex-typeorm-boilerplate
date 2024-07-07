@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 
 import { User } from './User';
 
-@Entity()
+@Entity('pets')
 export class Pet {
 
     @PrimaryColumn('uuid')
