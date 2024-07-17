@@ -1,3 +1,4 @@
+import * as ejs from 'ejs';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as puppeteer from 'puppeteer';
@@ -36,20 +37,17 @@ export class UserService {
         return this.userRepository.findOneByUsername(username);
     }
 
-    public async generatePdf(userId: number): Promise<Buffer> {
+    public async generatePdf(): Promise<Buffer> {
         try {
-            const user = await this.userRepository.findOne(userId);
-            if (!user) {
-                throw new Error(`User with ID ${userId} not found`);
-            }
+            const usersWithPets = await this.userRepository.queryUsersAndPetsUsingKnex();
 
-            const templatePath = path.resolve(__dirname, '..', 'exports', 'pdfs', 'template.html');
+            const templatePath = path.resolve(__dirname, '..', 'exports', 'pdfs', 'template.ejs');
+
             if (!fs.existsSync(templatePath)) {
                 throw new Error(`Template file not found at path: ${templatePath}`);
             }
 
-            let html = fs.readFileSync(templatePath, 'utf-8');
-            html = html.replace(/{{username}}/g, user.username);
+            const html = await ejs.renderFile(templatePath, { users: usersWithPets });
 
             const browser = await puppeteer.launch({
                 headless: true,

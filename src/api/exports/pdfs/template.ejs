@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User and Pets Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .user {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        .user .username {
+            font-weight: bold;
+        }
+        .pets {
+            margin-top: 10px;
+        }
+        .pet {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>User and Pets Report</h1>
+        </div>
+        <% users.forEach(function(user) { %>
+            <div class="user">
+                <p class="username">Username: <%= user.username %></p>
+                <div class="pets">
+                    <h3>Pets:</h3>
+                    <% user.pets.forEach(function(pet) { %>
+                        <div class="pet">
+                            <p>Pet ID: <%= pet.pet_id %></p>
+                            <p>Pet Name: <%= pet.pet_name %></p>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</body>
+</html>

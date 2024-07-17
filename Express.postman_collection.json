@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "ba22f270-25bb-439f-87f9-7ac05ed93c6c",
+		"_postman_id": "9be83201-ff54-44e8-9f8b-eebe47cc38f7",
 		"name": "Express",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30237316"
+		"_exporter_id": "11893867"
 	},
 	"item": [
 		{
@@ -241,25 +241,30 @@
 			"response": []
 		},
 		{
-			"name": "Get Users Copy",
+			"name": "Download PDF",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BEARER_TOKEN_FOR_USER}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{APP_URL}}/api/users",
+					"raw": "{{APP_URL}}/api/users/download-pdf/users",
 					"host": [
 						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
+						"users",
+						"download-pdf",
 						"users"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "3",
-							"disabled": true
-						}
 					]
 				}
 			},
