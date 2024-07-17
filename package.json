@@ -74,6 +74,7 @@
     "nps-utils": "^1.5.0",
     "pdfkit": "^0.15.0",
     "pg": "^7.4.3",
+    "puppeteer": "^22.13.0",
     "reflect-metadata": "^0.1.10",
     "routing-controllers": "^0.7.6",
     "routing-controllers-openapi": "^1.7.0",

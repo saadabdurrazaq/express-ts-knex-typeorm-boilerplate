@@ -1,4 +1,7 @@
-import PDFKit from 'pdfkit';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as puppeteer from 'puppeteer';
+// import PDFKit from 'pdfkit';
 import { Service } from 'typedi';
 import { OrmRepository } from 'typeorm-typedi-extensions';
 
@@ -34,19 +37,35 @@ export class UserService {
     }
 
     public async generatePdf(userId: number): Promise<Buffer> {
-        const user = await this.userRepository.findOne(userId );
-        const doc = new PDFKit();
-        doc.text(`User Report for ${user.username}`);
-        // Add more content to your PDF here
-        const pdfBuffer = await new Promise<Buffer>((resolve, reject) => {
-            const buffers: Uint8Array[] = [];
-            doc.on('data', buffers.push.bind(buffers));
-            doc.on('end', () => {
-                resolve(Buffer.concat(buffers));
+        try {
+            const user = await this.userRepository.findOne(userId);
+            if (!user) {
+                throw new Error(`User with ID ${userId} not found`);
+            }
+
+            const templatePath = path.resolve(__dirname, '..', 'exports', 'pdfs', 'template.html');
+            if (!fs.existsSync(templatePath)) {
+                throw new Error(`Template file not found at path: ${templatePath}`);
+            }
+
+            let html = fs.readFileSync(templatePath, 'utf-8');
+            html = html.replace(/{{username}}/g, user.username);
+
+            const browser = await puppeteer.launch({
+                headless: true,
+                args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                timeout: 60000 // 60 seconds
             });
-            doc.end();
-        });
-        return pdfBuffer;
+            const page = await browser.newPage();
+            await page.setContent(html, { waitUntil: 'networkidle0' });
+            const pdfBuffer = await page.pdf({ format: 'A4' });
+            await browser.close();
+
+            return pdfBuffer;
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+            throw new Error('Error generating PDF');
+        }
     }
 
     public async create(user: User): Promise<User> {
