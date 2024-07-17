@@ -1,3 +1,4 @@
+import bodyParser from 'body-parser';
 import { Application } from 'express';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import { createExpressServer } from 'routing-controllers';
@@ -33,6 +34,9 @@ export const expressLoader: MicroframeworkLoader = (settings: MicroframeworkSett
             authorizationChecker: authorizationChecker(connection),
             currentUserChecker: currentUserChecker(connection),
         });
+
+        expressApp.use(bodyParser.urlencoded({ extended: true }));
+        expressApp.use(bodyParser.json());
 
         // Run application to listen on given port
         if (!env.isTest) {

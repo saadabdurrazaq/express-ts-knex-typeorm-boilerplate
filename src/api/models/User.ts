@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Pet } from './Pet';
 
@@ -27,8 +27,12 @@ export class User {
         });
     }
 
-    @PrimaryColumn('uuid')
-    public id: string;
+    @PrimaryGeneratedColumn()
+    public id: number;
+
+    @IsNotEmpty()
+    @Column()
+    public name: string;
 
     @IsNotEmpty()
     @Column({ name: 'first_name' })
@@ -50,6 +54,9 @@ export class User {
     @IsNotEmpty()
     @Column()
     public username: string;
+
+    @Column()
+    public photo: string;
 
     @OneToMany(type => Pet, pet => pet.user)
     public pets: Pet[];

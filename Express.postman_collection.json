@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "37bd3249-8cb5-464a-95d2-15fa10ecc563",
+		"_postman_id": "ba22f270-25bb-439f-87f9-7ac05ed93c6c",
 		"name": "Express",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "11893867"
+		"_exporter_id": "30237316"
 	},
 	"item": [
 		{
@@ -158,13 +158,44 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"newuser@example.com\",\r\n    \"firstName\": \"New\",\r\n    \"lastName\": \"User\",\r\n    \"password\": \"password\",\r\n    \"username\": \"user\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "kunyuk@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Kunyuk Asu",
+							"type": "text"
+						},
+						{
+							"key": "firstName",
+							"value": "Kunyuk",
+							"type": "text"
+						},
+						{
+							"key": "lastName",
+							"value": "Asu",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "kunyukasu",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "kunyukasu",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/C:/Users/DEVELOPER_0/Pictures/Screenshots/Screenshot 2024-07-16 112021.png"
 						}
-					}
+					]
 				},
 				"url": {
 					"raw": "{{APP_URL}}/api/users/register",

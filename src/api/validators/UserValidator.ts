@@ -7,6 +7,9 @@ import { PetResponse } from '../controllers/PetController';
 
 export class BaseUser {
     @IsNotEmpty()
+    public name: string;
+
+    @IsNotEmpty()
     public firstName: string;
 
     @IsNotEmpty()
