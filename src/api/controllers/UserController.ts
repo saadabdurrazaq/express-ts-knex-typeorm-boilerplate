@@ -10,6 +10,7 @@ import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 import sharp from 'sharp';
 
 import { UserNotFoundError } from '../errors/UserNotFoundError';
+import { JwtAuthMiddleware } from '../middlewares/JwtAuthMiddleware';
 import { User } from '../models/User';
 import { UserService } from '../services/UserService';
 import { BaseUser, CreateUserBody, UserResponse } from '../validators/UserValidator';
@@ -80,6 +81,22 @@ export class UserController {
         } catch (error) {
             console.error('Error creating user:', error);
             throw new Error('Failed to create user');
+        }
+    }
+
+    @Get('/download-pdf/:userId')
+    @UseBefore(JwtAuthMiddleware) // Ensure the user is authenticated
+    public async downloadPdf(@Param('userId') userId: number, @Res() response: Response): Promise<void> {
+        try {
+            console.log('userId', userId)
+
+            const pdfBuffer = await this.userService.generatePdf(userId);
+            response.setHeader('Content-Type', 'application/pdf');
+            response.setHeader('Content-Disposition', 'attachment; filename=user_report.pdf');
+            response.send(pdfBuffer);
+        } catch (error) {
+            console.error('Error generating or sending PDF:', error);
+            response.status(500).send('Error generating PDF');
         }
     }
 

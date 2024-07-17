@@ -1,3 +1,4 @@
+import PDFKit from 'pdfkit';
 import { Service } from 'typedi';
 import { OrmRepository } from 'typeorm-typedi-extensions';
 
@@ -30,6 +31,22 @@ export class UserService {
     public async findByUsername(username: string): Promise<User | undefined> {
         this.log.info(`Find user by username: ${username}`);
         return this.userRepository.findOneByUsername(username);
+    }
+
+    public async generatePdf(userId: number): Promise<Buffer> {
+        const user = await this.userRepository.findOne(userId );
+        const doc = new PDFKit();
+        doc.text(`User Report for ${user.username}`);
+        // Add more content to your PDF here
+        const pdfBuffer = await new Promise<Buffer>((resolve, reject) => {
+            const buffers: Uint8Array[] = [];
+            doc.on('data', buffers.push.bind(buffers));
+            doc.on('end', () => {
+                resolve(Buffer.concat(buffers));
+            });
+            doc.end();
+        });
+        return pdfBuffer;
     }
 
     public async create(user: User): Promise<User> {
