@@ -6,6 +6,7 @@ import * as puppeteer from 'puppeteer';
 import { Service } from 'typedi';
 import { OrmRepository } from 'typeorm-typedi-extensions';
 
+import { UserWithPets } from '../../../src/interfaces/UserWithPets';
 // import uuid from 'uuid';
 import { EventDispatcher, EventDispatcherInterface } from '../../decorators/EventDispatcher';
 import { Logger, LoggerInterface } from '../../decorators/Logger';
@@ -35,6 +36,10 @@ export class UserService {
     public async findByUsername(username: string): Promise<User | undefined> {
         this.log.info(`Find user by username: ${username}`);
         return this.userRepository.findOneByUsername(username);
+    }
+
+    public async findAll(): Promise<UserWithPets[]> {
+        return this.userRepository.queryUsersAndPetsUsingKnex();
     }
 
     public async generatePdf(): Promise<Buffer> {

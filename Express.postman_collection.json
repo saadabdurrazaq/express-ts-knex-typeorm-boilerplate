@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "9be83201-ff54-44e8-9f8b-eebe47cc38f7",
+		"_postman_id": "21d92ab0-a96a-43ab-8667-b89e5ad2a002",
 		"name": "Express",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "11893867"
+		"_exporter_id": "30237316"
 	},
 	"item": [
 		{
@@ -264,6 +264,36 @@
 						"api",
 						"users",
 						"download-pdf",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download CSV",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BEARER_TOKEN_FOR_USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{APP_URL}}/api/users/download-csv/users",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"download-csv",
 						"users"
 					]
 				}

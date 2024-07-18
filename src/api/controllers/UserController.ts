@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+// import { DownloadCSV } from '../utils/DownloadCSV';
+import { Parser } from 'json2csv';
 // import fs from 'fs';
 import multer from 'multer';
 import path from 'path';
@@ -85,7 +87,7 @@ export class UserController {
     }
 
     @Get('/download-pdf/users')
-    @UseBefore(JwtAuthMiddleware) // Ensure the user is authenticated
+    @UseBefore(JwtAuthMiddleware)
     public async downloadPdf(@Res() response: Response): Promise<void> {
         try {
             const pdfBuffer = await this.userService.generatePdf();
@@ -95,6 +97,28 @@ export class UserController {
         } catch (error) {
             console.error('Error generating or sending PDF:', error);
             response.status(500).send('Error generating PDF');
+        }
+    }
+
+    @Get('/download-csv/users')
+    @UseBefore(JwtAuthMiddleware)
+    public async downloadCSV(@Res() response: Response): Promise<void> {
+        try {
+          const fields = [
+            { label: 'Id', value: 'user_id' },
+            { label: 'Username', value: 'username' }
+          ];
+
+          const data = await this.userService.findAll();
+          const json2csv = new Parser({ fields });
+          const csv = json2csv.parse(data);
+
+          response.setHeader('Content-Type', 'text/csv');
+          response.setHeader('Content-Disposition', 'attachment; filename=users.csv');
+          response.send(csv);
+        } catch (error) {
+          console.error('Error generating or sending CSV:', error);
+          response.status(500).send('Error generating CSV');
         }
     }
 
