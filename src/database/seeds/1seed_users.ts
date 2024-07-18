@@ -12,6 +12,7 @@ export async function seed(knex: Knex): Promise<void> {
     // Inserts seed entries
     const users = [
         {
+            id: 1,
             username: 'john_doe',
             name: 'John Doe',
             first_name: 'John',
@@ -31,6 +32,7 @@ export async function seed(knex: Knex): Promise<void> {
             deleted_at: undefined,
         },
         {
+            id: 2,
             username: 'jane_doe',
             name: 'Jane Doe',
             first_name: 'Jane',

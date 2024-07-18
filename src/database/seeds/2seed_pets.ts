@@ -11,6 +11,7 @@ export async function seed(knex: Knex): Promise<void> {
     // Inserts seed entries
     await knex('pets').insert([
         {
+            id: 1,
             name: 'Buddy',
             age: 3,
             user_id: 1,
@@ -19,6 +20,7 @@ export async function seed(knex: Knex): Promise<void> {
             deleted_at: undefined,
         },
         {
+            id: 2,
             name: 'Mittens',
             age: 2,
             user_id: 2,
