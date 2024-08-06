@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsNumber, IsUUID, ValidateNested } from 'class-validator';
 import {
-    Body, Delete, Get, JsonController, OnUndefined, Param, Post, Put, QueryParam, UseBefore
+    Authorized, Body, Delete, Get, JsonController, OnUndefined, Param, Post, Put, QueryParam, Req,
+    UseBefore
 } from 'routing-controllers'; // UseBefore, Authorized,
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 
@@ -49,8 +50,11 @@ export class PetController {
 
     @Get('/get-all-with-knex')
     @UseBefore(JwtAuthMiddleware)
+    @Authorized(['GET_ALL_USERS'])
     @ResponseSchema(PetResponse, { isArray: true })
-    public getAllWithKnex(@QueryParam('page') page: number): Promise<PaginatedResponse<UserWithPets>> {
+    public getAllWithKnex(@QueryParam('page') page: number, @Req() req: any): Promise<PaginatedResponse<UserWithPets>> {
+        req.controller = this; // Set the controller instance
+        req.action = 'getAllWithKnex';
         return this.petService.getAllDataUsingKnex(page);
     }
 

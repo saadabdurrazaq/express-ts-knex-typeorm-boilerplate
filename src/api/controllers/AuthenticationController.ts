@@ -56,6 +56,9 @@ export class AuthController {
         }
 
         const token = req.headers.authorization.split(' ')[1];
+
+        this.log.info('tokenxs', token);
+
         await this.authService.invalidateToken(token);
         console.log('req.headers.authorization', req.headers.authorization);
         res.status(200).send({ message: 'Logged out successfully' });

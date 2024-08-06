@@ -1,9 +1,13 @@
 import * as bcrypt from 'bcrypt';
 import { Exclude } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    BeforeInsert, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn
+} from 'typeorm';
 
+// import { Permission } from './Permission';
 import { Pet } from './Pet';
+import { Role } from './Role';
 
 @Entity('users')
 export class User {
@@ -60,6 +64,20 @@ export class User {
 
     @OneToMany(type => Pet, pet => pet.user)
     public pets: Pet[];
+
+    @ManyToMany(() => Role, role => role.users)
+    @JoinTable({
+        name: 'user_has_roles',
+        joinColumn: {
+            name: 'user_id',
+            referencedColumnName: 'id'
+        },
+        inverseJoinColumn: {
+            name: 'role_id',
+            referencedColumnName: 'id'
+        }
+    })
+    public roles: Role[];
 
     public toString(): string {
         return `${this.firstName} ${this.lastName} (${this.email})`;

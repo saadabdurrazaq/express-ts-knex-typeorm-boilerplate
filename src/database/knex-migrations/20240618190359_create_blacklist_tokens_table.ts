@@ -2,7 +2,7 @@ import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('blacklist_tokens', (table) => {
-        table.string('token').primary();
+        table.string('token', 512).primary();
         table.timestamp('created_at').defaultTo(knex.fn.now());
     });
 }
