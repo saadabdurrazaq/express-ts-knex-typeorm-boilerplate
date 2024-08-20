@@ -16,7 +16,7 @@ const knexConfig: { [key: string]: Knex.Config } = {
             directory: __dirname + '/database/knex-migrations',
         },
         seeds: {
-            directory: __dirname + '/database/seeds',
+            directory: __dirname + '/database/seeds', // /seed-group
         },
     },
 
