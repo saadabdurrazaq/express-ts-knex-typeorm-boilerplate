@@ -16,6 +16,13 @@ const knexInstance = knex(knexConfig[process.env.NODE_ENV || 'development']);
  */
 export async function seed(knex: Knex): Promise<void> {
     try {
+        await knex('users').del();
+        await knex('pets').del();
+        await knex('permissions').del();
+        await knex('roles').del();
+        await knex('role_has_permissions').del();
+        await knex('user_has_roles').del();
+
         if (process.env.NODE_ENV === 'production') {
             await knex.transaction(async (trx) => {
                 await users(trx);
